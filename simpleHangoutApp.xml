@@ -47,10 +47,10 @@
     style="visibility:hidden;"
     onClick="showParticipants()"/>
 </p>
-<canvas id="dummyCanvas">
+<canvas id="dummyCanvas"></canvas>
 <div id="participantsDiv"></div>
-<span id="measureSpan"/>
-<img id="result" />
+<span id="measureSpan"> </span>
+<img id="result" ></img>
 <hr>
 
 <p><a href="http://developers.google.com/+/hangouts/getting-started">Read the docs</a> to learn more about developing hangouts!</a></p>
