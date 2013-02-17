@@ -56,6 +56,7 @@
 <p><a href="http://developers.google.com/+/hangouts/getting-started">Read the docs</a> to learn more about developing hangouts!</a></p>
 
 <script>
+var backBuffer = null;
 function showParticipants() {
   var participants = gapi.hangout.getParticipants();
 
@@ -134,7 +135,6 @@ var BackBuffer = (function() {
   return BackBuffer;
 })();
 
-var backBuffer = null;
 function init() {
   // When API is ready...
   gapi.hangout.onApiReady.add(
