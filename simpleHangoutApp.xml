@@ -80,6 +80,17 @@ function showParticipants() {
 function startOvelay() {
     //var topHat = gapi.hangout.av.effects.createImageResource('http://hangoutmediastarter.appspot.com/static/topHat.png');
 }
+function showCommentOverlay(commentData, height, width) {
+    var comment = gapi.hangout.av.effects.createImageResource(commentData);
+    //var videoCanvas = gapi.hangout.layout.getVideoCanvas();
+    var overlay = comment.createOverlay({
+        'position': {x: 100, y:100},
+        'scaleWithFace': true,
+        'rotateWithFace': true,
+        'scale': 1.0
+    });
+    overlay.setVisible(true)
+}
 
 var BackBuffer = (function() {
   function BackBuffer(document) {
@@ -108,6 +119,9 @@ var BackBuffer = (function() {
     this.canvas.height = this.measureSpan.offsetHeight;
     this.canvas.width = textMetrics.width;
 
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
+
     var ctx = this.canvas.getContext('2d');
     ctx.font = this.measureCtx.font;
     ctx.textBaseline = 'top';
@@ -132,6 +146,7 @@ function init() {
           backBuffer.fillText("ほげほげ", 72);
           var result = document.getElementById('result');
           result.src = backBuffer.toDataURL();
+          showCommentOverlay(backBuffer.toDataURL(),100,100);
           }catch(e){alert(e)}
           document.getElementById('showParticipants').style.visibility = 'visible';
         }
