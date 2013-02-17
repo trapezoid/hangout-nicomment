@@ -77,7 +77,7 @@ function showParticipants() {
   div.innerHTML = retVal;
 }
 
-fucntion startOvelay {
+fucntion startOvelay() {
     //var topHat = gapi.hangout.av.effects.createImageResource('http://hangoutmediastarter.appspot.com/static/topHat.png');
 }
 
