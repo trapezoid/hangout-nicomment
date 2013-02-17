@@ -132,7 +132,13 @@ var BackBuffer = (function() {
 
   BackBuffer.prototype.flip = function() {
     var ctx = this.canvas.getContext('2d');
-    ctx.transform(-1, 0, 0, 1, this.canvas.width, 0);
+    if (this.fliped) {
+      ctx.transform(1, 0, 0, 1, 0, 0);
+      this.fliped = false;
+    } else {
+      ctx.transform(-1, 0, 0, 1, this.canvas.width, 0);
+      this.fliped = true;
+    }
     return this;
   }
 
@@ -150,7 +156,7 @@ function init() {
         if (eventObj.isApiReady) {
         try{
           backBuffer = new BackBuffer(document);
-          backBuffer.fillText("ほげほげ", 72).flip();
+          backBuffer.flip().fillText("ほげほげ", 72);
           var result = document.getElementById('result');
           result.src = backBuffer.toDataURL();
           showCommentOverlay(backBuffer.toDataURL(),100,100);
