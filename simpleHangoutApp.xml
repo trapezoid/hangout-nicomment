@@ -77,7 +77,7 @@ function showParticipants() {
 
   div.innerHTML = retVal;
 
-  showCommentOverlay(backBuffer.toDataURL(),100,100);
+  showCommentOverlay(backBuffer.toDataURL(),0.0,0.0);
 }
 
 function startOvelay() {
