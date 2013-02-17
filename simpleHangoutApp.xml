@@ -78,9 +78,7 @@ function showParticipants() {
 }
 
 fucntion startOvelay {
-    var topHat = gapi.hangout.av.effects.createImageResource(
-        'http://hangoutmediastarter.appspot.com/static/topHat.png');
-
+    //var topHat = gapi.hangout.av.effects.createImageResource('http://hangoutmediastarter.appspot.com/static/topHat.png');
 }
 
 var BackBuffer = (function() {
@@ -129,12 +127,13 @@ function init() {
   gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
+        try{
           backBuffer = new BackBuffer(document);
           backBuffer.fillText("ほげほげ", 72);
           var result = document.getElementById('result');
           result.src = backBuffer.toDataURL();
-          document.getElementById('showParticipants')
-            .style.visibility = 'visible';
+          }catch(e){alert(e)}
+          document.getElementById('showParticipants').style.visibility = 'visible';
         }
       });
 }
