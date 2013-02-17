@@ -84,10 +84,7 @@ function showCommentOverlay(commentData, height, width) {
     var comment = gapi.hangout.av.effects.createImageResource(commentData);
     //var videoCanvas = gapi.hangout.layout.getVideoCanvas();
     var overlay = comment.createOverlay({
-        'position': {x: 100, y:100},
-        'scaleWithFace': true,
-        'rotateWithFace': true,
-        'scale': 1.0
+        'position': {x: 100, y:100}
     });
     overlay.setVisible(true)
 }
