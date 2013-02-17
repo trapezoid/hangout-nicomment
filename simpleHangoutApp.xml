@@ -128,11 +128,11 @@ var BackBuffer = (function() {
     ctx.font = this.measureCtx.font;
     ctx.textBaseline = 'top';
 
+    ctx.fillText(text, 0, 0);
+
     if (isFlip) {
       ctx.transform(-1, 0, 0, 1, this.canvas.width, 0);
     }
-
-    ctx.fillText(text, 0, 0);
 
     return this;
   }
