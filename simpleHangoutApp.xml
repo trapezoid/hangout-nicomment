@@ -154,7 +154,7 @@ function init() {
         if (eventObj.isApiReady) {
         try{
           backBuffer = new BackBuffer(document);
-          backBuffer.fillText("ほげほげ", 72, true);
+          backBuffer.fillText("ほげほげ", 72, "Arial", true);
           var result = document.getElementById('result');
           result.src = backBuffer.toDataURL();
           showCommentOverlay(backBuffer.toDataURL(),100,100);
