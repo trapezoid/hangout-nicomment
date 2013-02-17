@@ -107,8 +107,10 @@ var BackBuffer = (function() {
     this.measureCtx = this.measureCanvas.getContext('2d');
   };
 
-  BackBuffer.prototype.fillText = function(text, pt, fontName) {
+  BackBuffer.prototype.fillText = function(text, pt, fontName, isFlip) {
     fontName = fontName || "Arial";
+    isFlip = isFlip || false;
+
     this.measureCtx.font   = pt + 'px ' + fontName;
     this.measureCtx.textBaseline = 'top';
 
@@ -125,21 +127,17 @@ var BackBuffer = (function() {
     var ctx = this.canvas.getContext('2d');
     ctx.font = this.measureCtx.font;
     ctx.textBaseline = 'top';
+
+    if (isFlip) {
+      ctx.transform(-1, 0, 0, 1, this.canvas.width, 0);
+    }
+
     ctx.fillText(text, 0, 0);
 
     return this;
   }
 
   BackBuffer.prototype.flip = function() {
-    var ctx = this.canvas.getContext('2d');
-    if (this.fliped) {
-      ctx.transform(1, 0, 0, 1, 0, 0);
-      this.fliped = false;
-    } else {
-      ctx.transform(-1, 0, 0, 1, this.canvas.width, 0);
-      this.fliped = true;
-    }
-    return this;
   }
 
   BackBuffer.prototype.toDataURL = function() {
@@ -156,7 +154,7 @@ function init() {
         if (eventObj.isApiReady) {
         try{
           backBuffer = new BackBuffer(document);
-          backBuffer.flip().fillText("ほげほげ", 72);
+          backBuffer.fillText("ほげほげ", 72, true);
           var result = document.getElementById('result');
           result.src = backBuffer.toDataURL();
           showCommentOverlay(backBuffer.toDataURL(),100,100);
