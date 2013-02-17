@@ -47,9 +47,10 @@
     style="visibility:hidden;"
     onClick="showParticipants()"/>
 </p>
-
+<canvas id="dummyCanvas">
 <div id="participantsDiv"></div>
-
+<span id="measureSpan"/>
+<img id="result" />
 <hr>
 
 <p><a href="http://developers.google.com/+/hangouts/getting-started">Read the docs</a> to learn more about developing hangouts!</a></p>
@@ -76,11 +77,62 @@ function showParticipants() {
   div.innerHTML = retVal;
 }
 
+fucntion startOvelay {
+    var topHat = gapi.hangout.av.effects.createImageResource(
+        'http://hangoutmediastarter.appspot.com/static/topHat.png');
+
+}
+
+var BackBuffer = (function() {
+  function BackBuffer(document) {
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
+
+    this.measureSpan = document.createElement('span');
+    this.measureSpan.style.position = "absolute";
+    this.measureSpan.style.top = "-1000px";
+    document.body.appendChild(this.measureSpan);
+    this.measureCanvas = document.createElement('canvas');
+    this.measureCanvas.width = 1;
+    this.measureCanvas.height = 1;
+    this.measureCtx = this.measureCanvas.getContext('2d');
+  };
+
+  BackBuffer.prototype.fillText = function(text, pt, fontName) {
+    fontName = fontName || "Arial";
+    this.measureCtx.font   = pt + 'px ' + fontName;
+    this.measureCtx.textBaseline = 'top';
+
+    this.measureSpan.style.font = pt + 'px ' + fontName;
+    this.measureSpan.textContent = text;
+    var textMetrics = this.measureCtx.measureText(text);
+
+    this.canvas.height = this.measureSpan.offsetHeight;
+    this.canvas.width = textMetrics.width;
+
+    var ctx = this.canvas.getContext('2d');
+    ctx.font = this.measureCtx.font;
+    ctx.textBaseline = 'top';
+    ctx.fillText(text, 0, 0);
+  }
+
+  BackBuffer.prototype.toDataURL = function() {
+    return this.canvas.toDataURL();
+  }
+
+  return BackBuffer;
+})();
+
+var backBuffer = null;
 function init() {
   // When API is ready...
   gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
+          backBuffer = new BackBuffer(document);
+          backBuffer.fillText("ほげほげ", 72);
+          var result = document.getElementById('result');
+          result.src = backBuffer.toDataURL();
           document.getElementById('showParticipants')
             .style.visibility = 'visible';
         }
