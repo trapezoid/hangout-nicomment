@@ -87,12 +87,12 @@ function showCommentOverlay(commentData, height, width) {
     var comment = gapi.hangout.av.effects.createImageResource(commentData);
     //var videoCanvas = gapi.hangout.layout.getVideoCanvas();
     var overlay = comment.createOverlay({
-        'position': {x: 0.0, y:0.0},
+        'position': {x: -0.6, y:0.0},
         'scale': {magnitude: 1.0 / 13, reference: gapi.hangout.av.effects.ScaleReference.HEIGHT}
     });
     setInterval(function(){
         var position = overlay.getPosition();
-        position.x = position.x - 0.01;
+        position.x = position.x + 0.01;
         overlay.setPosition(position);
     },100);
     overlay.setVisible(true)
